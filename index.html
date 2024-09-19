@@ -360,16 +360,15 @@
                             <p class="text contacts-section__content-col-text">
                                 Чтобы начать новое занятие, отправь нам заявку либо свяжись по номеру телефона
                             </p>
-                            <form action="" class="form">
+                            <form action="send_mail.php" method="POST" class="form" id="ajax-form">
                                 <input required placeholder="Имя" type="text" name="name" class="form__input">
                                 <input required placeholder="Почта" type="email" name="mail" class="form__input">
                                 <input required type="tel" name="tel" id="phone-mask" class="form__input"
                                     placeholder="Номер телефона">
-                                <textarea name="" class="form__textarea"
-                                    placeholder="Напишите направление и какой абонемент желаете приобрести"
-                                    id=""></textarea>
+                                <textarea name="message" class="form__textarea"
+                                    placeholder="Напишите направление и какой абонемент желаете приобрести"></textarea>
                                 <button class="btn form__btn" type="submit">
-                                    Оправить
+                                    Отправить
                                 </button>
                             </form>
                         </div>
@@ -379,17 +378,16 @@
                                     <h4 class="contacts-section__grid-item-heading">
                                         Телефон
                                     </h4>
-                                    <a href="tel:+79168094046" class="contacts-section__grid-item-value">
-                                        7(916) 809-40-46
+                                    <a href="tel:+79804330940" class="contacts-section__grid-item-value">
+                                        +7 (980) 433-09-40
                                     </a>
                                 </div>
                                 <div class="contacts-section__grid-item">
                                     <h4 class="contacts-section__grid-item-heading">
                                         Почта
                                     </h4>
-                                    <a href="mailto:companymirznaniy@mail.ru "
-                                        class="contacts-section__grid-item-value">
-                                        7(916) 809-40-46
+                                    <a href="mailto:companymirznaniy@mail.ru" class="contacts-section__grid-item-value">
+                                        companymirznaniy@mail.ru
                                     </a>
                                 </div>
                                 <div class="contacts-section__grid-item">
@@ -423,6 +421,8 @@
             </section>
         </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/imask"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
@@ -514,6 +514,39 @@
                 }
             }
         })
+
+        $(document).ready(function () {
+            $('#ajax-form').on('submit', function (e) {
+                e.preventDefault(); // Останавливаем перезагрузку страницы
+
+                var formData = $(this).serialize(); // Собираем данные формы
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'send_mail.php', // Путь к PHP-скрипту
+                    data: formData,
+                    success: function (response) {
+                        // Если письмо успешно отправлено, показываем модальное окно успеха
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Письмо отправлено',
+                            text: 'Мы свяжемся с вами в ближайшее время!',
+                            confirmButtonText: 'Ок'
+                        });
+                        $('#ajax-form')[0].reset(); // Очищаем форму после отправки
+                    },
+                    error: function () {
+                        // Если произошла ошибка, показываем модальное окно с ошибкой
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ошибка',
+                            text: 'Не удалось отправить сообщение, попробуйте позже.',
+                            confirmButtonText: 'Ок'
+                        });
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
