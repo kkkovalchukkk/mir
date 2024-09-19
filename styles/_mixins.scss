@@ -1,0 +1,108 @@
+/* SASS mixin start */
+
+/// $min - Minimum font size (px, rem)
+/// $max - Maximum font size (px, rem)
+/// $min-vw - Minimum viewport value lock range (px) --(optional)
+/// $max-vw - Maximum viewport value lock range (px) --(optional)
+/// $fallback - fallback font size (px, rem) --(optional)
+
+@mixin fluid-font(
+  $min,
+  $max,
+  $min-vw: 320px,
+  $max-vw: 1920px,
+  $fallback: false
+) {
+  $min-no-unit: strip-units($min);
+  $max-no-unit: strip-units($max);
+
+  $min-vw-no-unit: strip-units($min-vw);
+  $max-vw-no-unit: strip-units($max-vw);
+
+  @if getUnit($min) == 'rem' or getUnit($min) == 'em' {
+    $min-no-unit: strip-units($min) * 16;
+    $max-no-unit: strip-units($max) * 16;
+  }
+
+  $responsive: calc(
+    #{$min-no-unit}px + (#{$max-no-unit} - #{$min-no-unit}) *
+      ((100vw - #{$min-vw}) / (#{$max-vw-no-unit} - #{$min-vw-no-unit}))
+  );
+
+  @if $fallback {
+    font-size: $fallback;
+  } @else {
+    font-size: $max;
+  }
+
+  font-size: $responsive;
+
+  @media screen and (max-width: #{$min-vw}) {
+    font-size: $min;
+  }
+  @media screen and (min-width: #{$max-vw}) {
+    font-size: $max;
+  }
+}
+
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@function stripUnit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@function getUnit($value) {
+  @return str-slice($value * 0 + '', 2, -1);
+}
+
+@mixin dash {
+  position: relative;
+  &::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    background-color: $blue;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    max-width: 0%;
+  }
+
+  &:hover::after {
+    max-width: 100%;
+  }
+}
+
+// Strips values of their units.
+// See: https://css-tricks.com/snippets/sass/strip-unit-function/
+
+// You can replace `@media` with whatever media query mixin you're using.
+@mixin fluid($min-value, $max-value, $min-vw, $max-vw, $properties...) {
+  @each $property in $properties {
+    #{$property}: $min-value;
+  }
+
+  @media only screen and (min-width: #{$min-vw}) {
+    @each $property in $properties {
+      #{$property}: calc(
+        #{$min-value} +
+          #{stripUnit($max-value - $min-value)} *
+          (100vw - #{$min-vw}) /
+          #{stripUnit($max-vw - $min-vw)}
+      );
+    }
+  }
+
+  @media only screen and (min-width: #{$max-vw}) {
+    @each $property in $properties {
+      #{$property}: $max-value;
+    }
+  }
+}

@@ -1,166 +1,16 @@
-@import url(https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap);
-@font-face {
-  font-family: "Futura PT Cond Bold Italic W08";
-  src: url("../assets/fonts/Futura_PT/Futura PT Cond Bold Italic W08.ttf");
-}
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-blockquote,
-q {
-  quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* SASS mixin start */
 :root {
   --white: #f2f2f3;
   --black: #1a1a1a;
   --grey: #404040;
   --blue: #505fa1;
   --red: #f44539;
-  --font-family: "Inter", sans-serif;
-  --second-family: "Futura PT Cond Bold Italic W08", sans-serif;
+  --font-family: 'Inter', sans-serif;
+  --second-family: 'Futura PT Cond Bold Italic W08', sans-serif;
 }
 
 body {
   position: relative;
-  font-family: "Inter";
+  font-family: 'Inter';
   min-width: 320px;
   background-color: #eaedf4;
   overflow-x: clip;
@@ -198,25 +48,14 @@ section {
 .header__logo {
   width: 72px;
   height: 72px;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .header__nav {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 16px;
-}
-@media only screen and (min-width: 320px) {
-  .header__nav {
-    gap: calc(16px + 8 * (100vw - 320px) / 1600);
-  }
-}
-@media only screen and (min-width: 1920px) {
-  .header__nav {
-    gap: 24px;
-  }
+  @include fluid(16px, 24px, 320px, 1920px, gap);
 }
 
 .header__nav-link {
@@ -230,18 +69,7 @@ section {
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
-  font-size: 15px;
-  font-size: calc(12px + (15 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .header__nav-link {
-    font-size: 12px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .header__nav-link {
-    font-size: 15px;
-  }
+  @include fluid-font(12px, 15px);
 }
 
 .header__nav-link:hover {
@@ -266,18 +94,7 @@ section {
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
-  font-size: 15px;
-  font-size: calc(12px + (15 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .header__btn {
-    font-size: 12px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .header__btn {
-    font-size: 15px;
-  }
+  @include fluid-font(12px, 15px);
 }
 
 .header__btn:hover {
@@ -290,10 +107,10 @@ section {
   display: flex;
   align-items: center;
   gap: 24px;
-}
-.header__socials svg {
-  width: 32px;
-  height: 32px;
+  svg {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .main {
@@ -319,7 +136,7 @@ section {
 }
 
 .promo-section__container::after {
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   position: absolute;
@@ -327,7 +144,11 @@ section {
   border-radius: 60px;
   left: 0;
   bottom: 0;
-  background: linear-gradient(23deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    23deg,
+    rgb(0 0 0 / 49%) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .heading {
@@ -337,18 +158,7 @@ section {
   font-style: italic;
   text-transform: uppercase;
   color: var(--blue);
-  font-size: 72px;
-  font-size: calc(48px + (72 - 48) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .heading {
-    font-size: 48px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .heading {
-    font-size: 72px;
-  }
+  @include fluid-font(48px, 72px);
 }
 
 .promo-section__heading {
@@ -366,10 +176,10 @@ section {
 }
 
 .promo-section__heading::after {
-  content: "";
+  content: '';
   width: 60px;
   height: 59px;
-  background-image: url("../assets/img/promo-bg-round-angle.svg");
+  background-image: url('../assets/img/promo-bg-round-angle.svg');
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -378,15 +188,15 @@ section {
 }
 
 .promo-section__heading::before {
-  content: "";
+  content: '';
   width: 60px;
   height: 59px;
-  background-image: url("../assets/img/promo-bg-round-angle.svg");
+  background-image: url('../assets/img/promo-bg-round-angle.svg');
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
   left: 0;
-  top: 100%;
+  top: calc(100%);
 }
 
 .promo-section__bg {
@@ -396,8 +206,7 @@ section {
   width: 100%;
   height: 100%;
   z-index: -1;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 60px;
 }
 
@@ -406,18 +215,7 @@ section {
   font-weight: 400;
   font-size: 15px;
   line-height: 130%;
-  font-size: 15px;
-  font-size: calc(12px + (15 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .text {
-    font-size: 12px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .text {
-    font-size: 15px;
-  }
+  @include fluid-font(12px, 15px);
 }
 
 .text_white {
@@ -444,18 +242,7 @@ section {
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   outline: 1px solid var(--red);
-  font-size: 16px;
-  font-size: calc(12px + (16 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .btn {
-    font-size: 12px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .btn {
-    font-size: 16px;
-  }
+  @include fluid-font(12px, 16px);
 }
 
 .btn:hover {
@@ -495,18 +282,7 @@ section {
   line-height: 130%;
   text-align: center;
   color: var(--black);
-  font-size: 16px;
-  font-size: calc(12px + (16 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .promo-section__list-item-text {
-    font-size: 12px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .promo-section__list-item-text {
-    font-size: 16px;
-  }
+  @include fluid-font(12px, 16px);
 }
 
 .promo-section__list-item-value {
@@ -517,22 +293,12 @@ section {
   text-transform: uppercase;
   text-align: center;
   color: var(--black);
-  font-size: 64px;
-  font-size: calc(24px + (64 - 24) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .promo-section__list-item-value {
-    font-size: 24px;
+  @include fluid-font(24px, 64px);
+
+  span {
+    text-transform: lowercase;
+    color: var(--blue);
   }
-}
-@media screen and (min-width: 1920px) {
-  .promo-section__list-item-value {
-    font-size: 64px;
-  }
-}
-.promo-section__list-item-value span {
-  text-transform: lowercase;
-  color: var(--blue);
 }
 
 .tutors-section__wrapper {
@@ -550,18 +316,7 @@ section {
   text-align: center;
   color: var(--black);
   margin-bottom: 50px;
-  font-size: 48px;
-  font-size: calc(24px + (48 - 24) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .subheading {
-    font-size: 24px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .subheading {
-    font-size: 48px;
-  }
+  @include fluid-font(24px, 48px);
 }
 
 .tutors-section__card-list {
@@ -607,21 +362,10 @@ section {
   font-weight: 400;
   text-transform: uppercase;
   color: var(--red);
-  font-size: 28px;
-  font-size: calc(20px + (28 - 20) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .tutor-card__heading {
-    font-size: 20px;
+  @include fluid-font(20px, 28px);
+  span {
+    color: var(--blue);
   }
-}
-@media screen and (min-width: 1920px) {
-  .tutor-card__heading {
-    font-size: 28px;
-  }
-}
-.tutor-card__heading span {
-  color: var(--blue);
 }
 
 .tutor-card__subheading {
@@ -631,25 +375,21 @@ section {
   font-size: 40px;
   text-transform: uppercase;
   color: var(--black);
-  font-size: 36px;
-  font-size: calc(24px + (36 - 24) * (100vw - 320px) / (1920 - 320));
+  @include fluid-font(24px, 36px);
 }
-@media screen and (max-width: 320px) {
-  .tutor-card__subheading {
-    font-size: 24px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .tutor-card__subheading {
-    font-size: 36px;
-  }
-}
+
+// .tutor-card__text {
+//   font-family: var(--font-family);
+//   font-weight: 400;
+//   font-size: 15px;
+//   line-height: 130%;
+//   color: var(--black);
+// }
 
 .tutor-card__img {
   width: 345px;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .tutor-card:nth-child(3n) .tutor-card__img {
@@ -700,10 +440,10 @@ section {
 }
 
 .price-item__body::after {
-  content: "";
+  content: '';
   width: 60px;
   height: 59px;
-  background-image: url("../assets/img/promo-bg-round-angle.svg");
+  background-image: url('../assets/img/promo-bg-round-angle.svg');
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -713,10 +453,10 @@ section {
 }
 
 .price-item__body::before {
-  content: "";
+  content: '';
   width: 60px;
   height: 59px;
-  background-image: url("../assets/img/promo-bg-round-angle.svg");
+  background-image: url('../assets/img/promo-bg-round-angle.svg');
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -733,41 +473,20 @@ section {
   line-height: 175%;
   text-transform: uppercase;
   color: var(--red);
-  font-size: 36px;
-  font-size: calc(24px + (36 - 24) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .price-item__heading {
-    font-size: 24px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .price-item__heading {
-    font-size: 36px;
-  }
+  @include fluid-font(24px, 36px);
 }
 
 .price-item__row {
   font-family: var(--font-family);
   font-weight: 400;
+
   line-height: 130%;
   color: var(--black);
   margin-bottom: 10px;
-  font-size: 15px;
-  font-size: calc(12px + (15 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .price-item__row {
-    font-size: 12px;
+  @include fluid-font(12px, 15px);
+  b {
+    font-weight: bold;
   }
-}
-@media screen and (min-width: 1920px) {
-  .price-item__row {
-    font-size: 15px;
-  }
-}
-.price-item__row b {
-  font-weight: bold;
 }
 
 .price-item__img {
@@ -776,8 +495,7 @@ section {
   top: 0;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   z-index: -1;
   border-radius: 60px;
   overflow: hidden;
@@ -820,18 +538,7 @@ section {
   line-height: 175%;
   text-transform: uppercase;
   color: var(--black);
-  font-size: 36px;
-  font-size: calc(22px + (36 - 22) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .contacts-section__subheading {
-    font-size: 22px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .contacts-section__subheading {
-    font-size: 36px;
-  }
+  @include fluid-font(22px, 36px);
 }
 
 .contacts-section__content-col-text {
@@ -894,6 +601,7 @@ section {
   margin-bottom: 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  //   grid-auto-rows: 1fr;
   gap: 32px;
 }
 
@@ -911,18 +619,7 @@ section {
   line-height: 233%;
   text-transform: uppercase;
   color: var(--black);
-  font-size: 24px;
-  font-size: calc(18px + (24 - 18) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .contacts-section__grid-item-heading {
-    font-size: 18px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .contacts-section__grid-item-heading {
-    font-size: 24px;
-  }
+  @include fluid-font(18px, 24px);
 }
 
 .contacts-section__grid-item-value {
@@ -931,18 +628,7 @@ section {
   font-size: 15px;
   line-height: 130%;
   color: var(--black);
-  font-size: 15px;
-  font-size: calc(12px + (15 - 12) * (100vw - 320px) / (1920 - 320));
-}
-@media screen and (max-width: 320px) {
-  .contacts-section__grid-item-value {
-    font-size: 12px;
-  }
-}
-@media screen and (min-width: 1920px) {
-  .contacts-section__grid-item-value {
-    font-size: 15px;
-  }
+  @include fluid-font(12px, 15px);
 }
 
 .contacts-section__grid-item-row {
@@ -957,4 +643,4 @@ section {
   height: 360px;
   border: 1px solid var(--grey);
   border-radius: 60px;
-}/*# sourceMappingURL=index.css.map */
+}
