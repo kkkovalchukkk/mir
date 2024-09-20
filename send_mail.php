@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($email) && !empty($phone)) {
 
         // Устанавливаем заголовки письма
-        $to = "companymirznaniy@mail.ru"; 
+        $to = "student.kovalchuk@yandex.ru"; 
         $subject = "Новая заявка с формы";
         $headers = "From: " . $email . "\r\n";
         $headers .= "Reply-To: " . $email . "\r\n";
