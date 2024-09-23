@@ -520,27 +520,34 @@
         })
 
         $(document).ready(function () {
-            $('#ajax-form').on('submit', function (e) {
+            $('form').on('submit', function (e) {
                 e.preventDefault(); // Останавливаем перезагрузку страницы
 
                 var formData = $(this).serialize(); // Собираем данные формы
 
                 $.ajax({
                     type: 'POST',
-                    url: 'send_mail.php', // Путь к PHP-скрипту
+                    url: 'send_to_telegram.php', // Путь к новому PHP-скрипту
                     data: formData,
                     success: function (response) {
-                        // Если письмо успешно отправлено, показываем модальное окно успеха
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Письмо отправлено',
-                            text: 'Мы свяжемся с вами в ближайшее время!',
-                            confirmButtonText: 'Ок'
-                        });
-                        $('#ajax-form')[0].reset(); // Очищаем форму после отправки
+                        if (response === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Сообщение отправлено',
+                                text: 'Мы свяжемся с вами в ближайшее время!',
+                                confirmButtonText: 'Ок'
+                            });
+                            $('form')[0].reset(); // Очищаем форму после отправки
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ошибка',
+                                text: 'Не удалось отправить сообщение, попробуйте позже.',
+                                confirmButtonText: 'Ок'
+                            });
+                        }
                     },
                     error: function () {
-                        // Если произошла ошибка, показываем модальное окно с ошибкой
                         Swal.fire({
                             icon: 'error',
                             title: 'Ошибка',
@@ -551,6 +558,7 @@
                 });
             });
         });
+
     </script>
 </body>
 
